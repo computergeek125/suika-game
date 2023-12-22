@@ -189,6 +189,11 @@ const Game = {
 				// Skip different sizes
 				if (bodyA.sizeIndex !== bodyB.sizeIndex) continue;
 
+				// Skip partially discarded fruits
+				if (bodyA.popped || bodyB.popped) {
+					console.log(`Partial pop between ${bodyA} and ${bodyB}`)
+				}
+
 				let newSize = bodyA.sizeIndex + 1;
 
 				// Go back to smallest size
@@ -203,6 +208,8 @@ const Game = {
 				const midPosY = (bodyA.position.y + bodyB.position.y) / 2;
 
 				Game.sounds[`pop${bodyA.sizeIndex}`].play();
+				bodyA.popped = true;
+				bodyB.popped = true;
 				Composite.remove(engine.world, [bodyA, bodyB]);
 				Composite.add(engine.world, Game.generateFruitBody(midPosX, midPosY, newSize));
 				Game.addPop(midPosX, midPosY, bodyA.circleRadius);
