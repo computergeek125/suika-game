@@ -192,6 +192,7 @@ const Game = {
 				// Skip partially discarded fruits
 				if (bodyA.popped || bodyB.popped) {
 					console.log(`Partial pop between ${bodyA} and ${bodyB}`)
+					continue;
 				}
 
 				let newSize = bodyA.sizeIndex + 1;
